@@ -31,6 +31,7 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         Movement();
+        PlayerStomp();
     }
 
     private void Movement()
@@ -73,6 +74,19 @@ public class EnemyMovement : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerMovement>().Respawn(); // calls the respawn function from the player script
+        }
+    }
+
+    private void PlayerStomp()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, 1f))
+        {
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

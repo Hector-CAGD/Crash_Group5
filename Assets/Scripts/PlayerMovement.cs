@@ -41,6 +41,16 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         MoveAndTurn();
         Attack();
+        OneUpLife();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "WumpaFruit")
+        {
+            totalWumpaFruit += wumpaFruitValue;
+            Destroy(other.gameObject);
+        }
     }
 
     private void Attack()
@@ -93,6 +103,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("Can't jump midair");
             }
+        }
+    }
+
+    public void OneUpLife() // grants the player another life when they collect 100 wumpa fruit
+    {
+        if (totalWumpaFruit == 100)
+        {
+            print("You got another life!");
+            lives++; // adds 1 to the total lives
+            totalWumpaFruit = 0; // Resets the count to 0
         }
     }
 
