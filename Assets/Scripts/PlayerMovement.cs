@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         MoveAndTurn();
         Attack();
         OneUpLife();
+        SpikeShell();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -102,6 +103,19 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 Debug.Log("Can't jump midair");
+            }
+        }
+    }
+
+    private void SpikeShell() // Player respawns if they land on the spiky turtle enemy
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
+        {
+            if (hit.collider.gameObject.tag == "SpikyEnemy")
+            {
+                Respawn();
             }
         }
     }
