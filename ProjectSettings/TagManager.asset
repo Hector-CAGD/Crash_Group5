@@ -10,6 +10,8 @@ TagManager:
   - Crate
   - SpikyEnemy
   - Spike
+  - ShieldedEnemy
+  - WeakSpot
   layers:
   - Default
   - TransparentFX

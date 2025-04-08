@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         Attack();
         OneUpLife();
         SpikeShell();
+        StompEnemies();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -121,6 +122,24 @@ public class PlayerMovement : MonoBehaviour
             if (hit.collider.gameObject.tag == "SpikyEnemy")
             {
                 Respawn();
+            }
+        }
+    }
+
+    private void StompEnemies()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f)) ;
+        {
+            if (hit.collider.gameObject.tag == "Enemy")
+            {
+                Destroy(hit.collider.gameObject);
+            }
+
+            if (hit.collider.gameObject.tag == "ShieldedEnemy")
+            {
+                Destroy(hit.collider.gameObject);
             }
         }
     }

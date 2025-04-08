@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /*
  * Hector Palos-Hernandez
@@ -11,10 +12,14 @@ using UnityEngine;
 public class BreakablePlatform : MonoBehaviour
 {
     public Renderer renderer;
+    public BoxCollider boxCollider;
+
+    public int breakTimer;
 
     private void Start()
     {
         renderer.enabled = true;
+        boxCollider.enabled = true;
     }
 
     // Update is called once per frame
@@ -49,9 +54,12 @@ public class BreakablePlatform : MonoBehaviour
     /// <returns></returns>
     IEnumerator BreakPlatform()
     {
-        yield return new WaitForSeconds(3);
+        RaycastHit hit;
+        yield return new WaitForSeconds(breakTimer);
         renderer.enabled = false;
+        boxCollider.enabled = false;
         yield return new WaitForSeconds(5);
         renderer.enabled = true;
+        boxCollider.enabled = true;
     }
 }

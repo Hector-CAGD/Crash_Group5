@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 /*
  * Hector Palos-Hernandez
- * 4/4/25
- * Controls the enemy movement
+ * 4/8/25
+ * Movement for the shielded enemy
  */
 
-public class EnemyMovement : MonoBehaviour
+public class ShieldedEnemy : MonoBehaviour
 {
+    [Header("Weak Spot")]
+
     public GameObject leftPoint;
     public GameObject rightPoint;
     public GameObject forwardPoint;
@@ -42,7 +43,6 @@ public class EnemyMovement : MonoBehaviour
     {
         Movement();
     }
-
     private void Movement()
     {
         if (horizontal == true) // if it moves on the x axis *left and right*
@@ -104,14 +104,9 @@ public class EnemyMovement : MonoBehaviour
             }
         }
     }
-
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Attack")
-        {
-            Destroy(gameObject); // when the player is in attack mode, the enemy dies, not the player
-        }
-
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerMovement>().Respawn(); // calls the respawn function from the player script
