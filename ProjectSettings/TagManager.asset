@@ -9,6 +9,7 @@ TagManager:
   - WumpaFruit
   - Crate
   - SpikyEnemy
+  - Spike
   layers:
   - Default
   - TransparentFX

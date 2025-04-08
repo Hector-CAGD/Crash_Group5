@@ -52,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
             totalWumpaFruit += wumpaFruitValue;
             Destroy(other.gameObject);
         }
+
+        if (other.gameObject.tag == "Spike")
+        {
+            Respawn();
+        }
     }
 
     private void Attack()
