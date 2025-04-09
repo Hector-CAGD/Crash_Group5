@@ -12,6 +12,7 @@ TagManager:
   - Spike
   - ShieldedEnemy
   - WeakSpot
+  - ExtraLifeCrate
   layers:
   - Default
   - TransparentFX

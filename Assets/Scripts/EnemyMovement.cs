@@ -41,10 +41,13 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         Movement();
+        CheckForCliff();
     }
 
     private void Movement()
     {
+        RaycastHit hit;
+
         if (horizontal == true) // if it moves on the x axis *left and right*
         {
             if (goingLeft)
@@ -101,6 +104,32 @@ public class EnemyMovement : MonoBehaviour
                 {
                     transform.position += Vector3.back * Time.deltaTime * speed;
                 }
+            }
+        }
+    }
+
+    private void CheckForCliff() // function should change the enemies direction if there is no ground underneath it
+    {
+        RaycastHit hit;
+
+        if (!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
+        {
+            if (goingStraight == true)
+            {
+                goingStraight = false;
+            }
+            else
+            {
+                goingStraight = true;
+            }
+
+            if (goingLeft == true)
+            {
+                goingLeft = false;
+            }
+            else
+            {
+                goingLeft = true;
             }
         }
     }
