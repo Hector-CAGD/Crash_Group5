@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /*
  * Hector Palos-Hernandez
- * 4/4/25
+ * 4/10/25
  * Controls the player movement using the w,a,s, and d key to move forward, left, back, and right
  */
 
@@ -57,6 +58,12 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Spike")
         {
             Respawn();
+        }
+
+        if (other.gameObject.tag == "Exit")
+        {
+            startPosition = other.gameObject.GetComponent<Exit>().spawnPoint.transform.position;
+            transform.position = startPosition;
         }
     }
 
@@ -130,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f)) ;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
         {
             if (hit.collider.gameObject.tag == "Enemy")
             {

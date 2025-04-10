@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * Hector Palos-Hernandez
- * 4/6/25
+ * 4/10/25
  * Controls the movement of the spiky turtle enemy and destroys it if the player is in attack mode
  */
 
@@ -41,6 +41,7 @@ public class SpikyTurtle : MonoBehaviour
     {
         Movement();
         CheckForCliff();
+        CheckForWall();
     }
 
     private void Movement()
@@ -127,6 +128,35 @@ public class SpikyTurtle : MonoBehaviour
             else
             {
                 goingLeft = true;
+            }
+        }
+    }
+
+    private void CheckForWall()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f)) // Checks for a wall and turns the enemy away from it and continues its path
+        {
+            if (hit.collider.gameObject.tag == "Wall")
+            {
+                if (goingStraight == true)
+                {
+                    goingStraight = false;
+                }
+                else
+                {
+                    goingStraight = true;
+                }
+
+                if (goingLeft == true)
+                {
+                    goingLeft = false;
+                }
+                else
+                {
+                    goingLeft = true;
+                }
             }
         }
     }

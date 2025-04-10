@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * Hector Palos-Hernandez
- * 4/8/25
+ * 4/10/25
  * Movement for the shielded enemy
  */
 
@@ -43,6 +43,7 @@ public class ShieldedEnemy : MonoBehaviour
     {
         Movement();
         CheckForCliff();
+        CheckForWall();
     }
     private void Movement()
     {
@@ -128,6 +129,35 @@ public class ShieldedEnemy : MonoBehaviour
             else
             {
                 goingLeft = true;
+            }
+        }
+    }
+
+    private void CheckForWall()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f)) // Checks for a wall and turns the enemy away from it and continues its path
+        {
+            if (hit.collider.gameObject.tag == "Wall")
+            {
+                if (goingStraight == true)
+                {
+                    goingStraight = false;
+                }
+                else
+                {
+                    goingStraight = true;
+                }
+
+                if (goingLeft == true)
+                {
+                    goingLeft = false;
+                }
+                else
+                {
+                    goingLeft = true;
+                }
             }
         }
     }

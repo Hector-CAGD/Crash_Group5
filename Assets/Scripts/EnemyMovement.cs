@@ -42,6 +42,7 @@ public class EnemyMovement : MonoBehaviour
     {
         Movement();
         CheckForCliff();
+        CheckForWall();
     }
 
     private void Movement()
@@ -112,7 +113,7 @@ public class EnemyMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
+        if (!Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f)) // Checks for the edge of a cliff and turns the enemy away from it and continues its path
         {
             if (goingStraight == true)
             {
@@ -130,6 +131,35 @@ public class EnemyMovement : MonoBehaviour
             else
             {
                 goingLeft = true;
+            }
+        }
+    }
+
+    private void CheckForWall()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 1f)) // Checks for a wall and turns the enemy away from it and continues its path
+        {
+            if (hit.collider.gameObject.tag == "Wall")
+            {
+                if (goingStraight == true)
+                {
+                    goingStraight = false;
+                }
+                else
+                {
+                    goingStraight = true;
+                }
+
+                if (goingLeft == true)
+                {
+                    goingLeft = false;
+                }
+                else
+                {
+                    goingLeft = true;
+                }
             }
         }
     }

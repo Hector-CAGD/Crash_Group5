@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 /*
  * Hector Palos-Hernandez
- * 4/7/25
+ * 4/10/25
  * Starts a timer when the player lands on the platform, then it breaks and respawns after 5 seconds
  */
 
@@ -21,30 +21,19 @@ public class BreakablePlatform : MonoBehaviour
         renderer.enabled = true;
         boxCollider.enabled = true;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        PlayerStep();
-    }
-
+    
     /// <summary>
-    /// Detects if the player lands on it and starts the BreakPlatform function
+    /// Detects if the player collides (steps on) it and starts the BreakPlatform function
     /// </summary>
-    private void PlayerStep()
+    private void OnCollisionEnter(Collision collision)
     {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, Vector3.up, out hit, 2f))
+        if (collision.gameObject.tag == "Player")
         {
-            if (hit.collider.gameObject.tag == "Player")
-            {
-                StartCoroutine(BreakPlatform());
-            }
-            if (hit.collider.gameObject.tag == "Attack")
-            {
-                StartCoroutine(BreakPlatform());
-            }
+            StartCoroutine(BreakPlatform());
+        }
+        if (collision.gameObject.tag == "Attack")
+        {
+            StartCoroutine(BreakPlatform());
         }
     }
 
@@ -54,7 +43,6 @@ public class BreakablePlatform : MonoBehaviour
     /// <returns></returns>
     IEnumerator BreakPlatform()
     {
-        RaycastHit hit;
         yield return new WaitForSeconds(breakTimer);
         renderer.enabled = false;
         boxCollider.enabled = false;

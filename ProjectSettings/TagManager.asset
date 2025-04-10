@@ -13,6 +13,8 @@ TagManager:
   - ShieldedEnemy
   - WeakSpot
   - ExtraLifeCrate
+  - Wall
+  - Exit
   layers:
   - Default
   - TransparentFX
