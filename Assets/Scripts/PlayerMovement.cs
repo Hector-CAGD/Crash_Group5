@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             RaycastHit hit;
 
             // if the raycast returns true then an object has hit and the player is touching the floor
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 2f))
             {
                 Debug.Log("Touching the ground");
 
