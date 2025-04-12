@@ -15,6 +15,7 @@ TagManager:
   - ExtraLifeCrate
   - Wall
   - Exit
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -24,15 +24,8 @@ public class FloatingPlatform : MonoBehaviour
     public Vector3 upPos;
     public bool goingDown;
 
-    public GameObject backPoint;
-    public GameObject forwardPoint;
-    public Vector3 backPos;
-    public Vector3 forwardPos;
-    public bool goingBack;
-
     public bool Horizontal;
     public bool Vertical;
-    public bool ZAxis;
 
     // Start is called before the first frame update
     void Start()
@@ -42,9 +35,6 @@ public class FloatingPlatform : MonoBehaviour
 
         leftPos = leftPoint.transform.position;
         rightPos = rightPoint.transform.position;
-
-        forwardPos = forwardPoint.transform.position;
-        backPos = backPoint.transform.position;
     }
 
     // Update is called once per frame
@@ -108,33 +98,6 @@ public class FloatingPlatform : MonoBehaviour
                 }
             }
         }
-        if (ZAxis == true)
-        {
-            if (goingBack)
-            {
-                transform.LookAt(backPos);
-                if (transform.position.z <= backPos.z)
-                {
-                    goingBack = false;
-                }
-                else
-                {
-                    transform.position += Vector3.back * Time.deltaTime * speed;
-                }
-            }
-            else
-            {
-                transform.LookAt(forwardPos);
-                if (transform.position.z >= forwardPos.z)
-                {
-                    goingBack = true;
-                }
-                else
-                {
-                    transform.position += Vector3.forward * Time.deltaTime * speed;
-                }
-            }
-        }
     }
 
     /// <summary>
@@ -148,15 +111,17 @@ public class FloatingPlatform : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Wall")
             {
-                if (goingBack == true)
+                if (goingLeft == true)
                 {
-                    goingBack = false;
+                    goingLeft = false;
                 }
                 else
                 {
-                    goingBack = true;
+                    goingLeft = true;
                 }
-
+            }
+            if (hit.collider.gameObject.tag == "Ground")
+            {
                 if (goingLeft == true)
                 {
                     goingLeft = false;
@@ -169,47 +134,29 @@ public class FloatingPlatform : MonoBehaviour
         }
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.up), out hit, 1f))
         {
-            if (hit.collider.gameObject.tag == "Wall")
+            if (hit.collider.gameObject.tag == "Ground")
             {
-                if (goingBack == true)
+                if (goingDown == true)
                 {
-                    goingBack = false;
+                    goingDown = false;
                 }
                 else
                 {
-                    goingBack = true;
-                }
-
-                if (goingLeft == true)
-                {
-                    goingLeft = false;
-                }
-                else
-                {
-                    goingLeft = true;
+                    goingDown = true;
                 }
             }
         }
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 1f))
         {
-            if (hit.collider.gameObject.tag == "Wall")
+            if (hit.collider.gameObject.tag == "Ground")
             {
-                if (goingBack == true)
+                if (goingDown == true)
                 {
-                    goingBack = false;
+                    goingDown = false;
                 }
                 else
                 {
-                    goingBack = true;
-                }
-
-                if (goingLeft == true)
-                {
-                    goingLeft = false;
-                }
-                else
-                {
-                    goingLeft = true;
+                    goingDown = true;
                 }
             }
         }
