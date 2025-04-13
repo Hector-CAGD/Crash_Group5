@@ -16,6 +16,8 @@ TagManager:
   - Wall
   - Exit
   - Ground
+  - Broken
+  - SecretExit
   layers:
   - Default
   - TransparentFX

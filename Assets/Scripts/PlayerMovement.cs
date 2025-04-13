@@ -65,6 +65,13 @@ public class PlayerMovement : MonoBehaviour
             startPosition = other.gameObject.GetComponent<Exit>().spawnPoint.transform.position;
             transform.position = startPosition;
         }
+
+        if (other.gameObject.tag == "SecretExit")
+        {
+            startPosition = other.gameObject.GetComponent<Exit>().spawnPoint.transform.position;
+            transform.position = startPosition;
+            Destroy(other.gameObject);
+        }
     }
 
     private void Attack()
